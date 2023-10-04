@@ -1,7 +1,6 @@
 import React from "react";
 // CLS -> Cumulative Layout Shift
-export default function Alert(props) {
-	console.log(props.alert)
+const Alert = (props) => {
 	return (
 		<div style={{height: '50px'}} >
 			{props.alert && (
@@ -21,3 +20,5 @@ export default function Alert(props) {
 		</div>
 	);
 }
+
+export default Alert

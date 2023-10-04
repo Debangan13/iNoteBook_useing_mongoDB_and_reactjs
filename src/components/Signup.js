@@ -33,11 +33,10 @@ const Signup = (props) => {
 		const json = await response.json();
 		console.log(json);
 		if (json.success) {
-			localStorage.clear();
 			localStorage.setItem("token", json.token);
 			history.push("/");
 		} else {
-			alert("Sorry a user with this email already exists.");
+			props.showAlert("Invalid details",'danger');
 		}
 	};
 

@@ -5,6 +5,7 @@ const NoteState = (props) => {
 	const host = "http://localhost:5000/api/v1/";
 	const notesInitial = [];
 	const [notes, setNotes] = useState(notesInitial);
+	const {showAlert} = props
 
 	// Geting all Notes
 	const getNote = async () => {
@@ -25,7 +26,7 @@ const NoteState = (props) => {
 		const data = await response.json();
 		const data2 = await response2.json();
 		console.log(data);
-		console.log(data2.user.name)
+		console.log("name",data2.user.name)
 		setNotes(data.notes)
 
 	};
@@ -56,7 +57,7 @@ const NoteState = (props) => {
 			headers: {
 				"Content-Type": "application/json",
 				"auth-token":
-					"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGZiNDgxNzY0Yjk1ZmZkYzY2MzZhYWUiLCJpYXQiOjE2OTQxODk3ODcsImV4cCI6MTY5Njc4MTc4N30.QLS_K7ykDzQIiOybv704W80AGMS6Qun0muW476d8hP4",
+					localStorage.getItem('token'),
 			},
 		});
 		const json = await response.json()
@@ -66,6 +67,7 @@ const NoteState = (props) => {
 			return noteId !== id;
 		});
 		setNotes(newNotes);
+		showAlert('Note Deleted Successfully','success')
 	};
 
 	// Editing notes
@@ -77,7 +79,7 @@ const NoteState = (props) => {
 			headers: {
 				"Content-Type": "application/json",
 				"auth-token":
-					"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGZiNDgxNzY0Yjk1ZmZkYzY2MzZhYWUiLCJpYXQiOjE2OTQxODk3ODcsImV4cCI6MTY5Njc4MTc4N30.QLS_K7ykDzQIiOybv704W80AGMS6Qun0muW476d8hP4",
+					localStorage.getItem('token'),
 			},
 			body: JSON.stringify(data),
 		});
@@ -109,6 +111,7 @@ const NoteState = (props) => {
 			
 		}
 		setNotes(note)
+		showAlert('Note Edited Successfully','success')
 	};
 
 	return (

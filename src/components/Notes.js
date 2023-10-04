@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState, useContext } from "react";
 import noteContext from "../context/notes/noteContext";
 import Noteitem from "../components/Noteitem";
 import Addnote from "../components/Addnote";
+import { useHistory } from "react-router-dom";
 
-export default function Notes() {
+export default function Notes(props) {
 	const context = useContext(noteContext);
 	const { notes, getNote, editNote } = context;
 	const [note, setNote] = useState({
@@ -12,9 +13,15 @@ export default function Notes() {
 		edescription: "",
 		etag: "",
 	});
+	let history = useHistory()
 
 	useEffect(() => {
-		getNote();
+		if(localStorage.getItem("token")){
+			getNote();
+		}else{
+			history.push('/login')
+		}
+
 	}, []);
 	const ref = useRef(null);
 	const refClose = useRef(null);
